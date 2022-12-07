@@ -1,4 +1,9 @@
-
+/**
+ * 
+ * 
+ * @author ocamp
+ *
+ */
 public class Card
 {
 	private String rarity;

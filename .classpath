@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="NBA Cards with GUI/src"/>
+	<classpathentry kind="output" path="NBA Cards with GUI/bin"/>
+</classpath>
