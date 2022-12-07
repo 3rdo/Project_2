@@ -9,7 +9,8 @@ public class Test
 	
 	public static void main(String[] args) {
 		GUI gui = new GUI();
-		gui.openPack();
+		gui.menu();
+		gui.checkAction();
 		
 		
 		Game game = new Game();
