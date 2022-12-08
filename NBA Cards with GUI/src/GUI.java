@@ -14,15 +14,20 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 public class GUI implements ActionListener
 {
-	private JFrame frame;
+	private JFrame menuFrame;
+	private JFrame openPackFrame;
+	private JFrame storageFrame;
+	private JFrame cardRarityFrame;
 	private JButton openPackButton;
 	private JButton storageButton;
 	private JButton cardRarityButton;
-	private JPanel panel;
 	private JButton menuButton;
 	
 	public GUI() {
-		frame = new JFrame();
+		menuFrame = new JFrame();
+		openPackFrame = new JFrame();
+		storageFrame = new JFrame();
+		cardRarityFrame = new JFrame();
 		
 		openPackButton = new JButton("Open Pack");
 		storageButton = new JButton("Storage");
@@ -42,19 +47,27 @@ public class GUI implements ActionListener
 		
 		
 	
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setTitle("NBA Cards");
-		frame.setSize(500, 500);
-		frame.setLayout(null);
-		frame.setVisible(true);
+		menuFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		menuFrame.setTitle("NBA Cards");
+		menuFrame.setSize(500, 500);
+		menuFrame.setLayout(null);
+		menuFrame.add(openPackButton);
+		menuFrame.add(storageButton);
+		menuFrame.add(cardRarityButton);
+		menuFrame.setVisible(true);
+		
+		openPackFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		openPackFrame.setTitle("Opening Pack");
+		openPackFrame.setSize(500, 500);
+		openPackFrame.setLayout(null);
+		openPack();
+		openPackFrame.setVisible(false);
 		
 	}
 	
 	public void menu() {
 		
-		frame.add(openPackButton);
-		frame.add(storageButton);
-		frame.add(cardRarityButton);
+		
 		
 		
 	}
@@ -67,8 +80,8 @@ public class GUI implements ActionListener
 		lebronIcon = new ImageIcon(lebron);
 		JLabel lebronLabel = new JLabel(lebronIcon);
 		lebronLabel.setBounds(130, 105, 150, 250);
-		frame.add(lebronLabel);
-		frame.add(menuButton);
+		openPackFrame.add(lebronLabel);
+		openPackFrame.add(menuButton);
 	}
 	
 	public void storage() {
@@ -114,8 +127,21 @@ public class GUI implements ActionListener
 	{
 		// TODO Auto-generated method stub
 		
-		System.out.println("in action performed");
+		if(e.getSource()==openPackButton) {
+			menuFrame.setVisible(false);
+			openPackFrame.setVisible(true);
+		}
 		
+		else if(e.getSource()==storageButton) {
+			storage();
+		}
+		else if(e.getSource()==cardRarityButton) {
+			cardRarity();
+		}
+		else if(e.getSource()==menuButton) {
+			openPackFrame.setVisible(false);
+			menuFrame.setVisible(true);
+		}
 	}
 	
 	
