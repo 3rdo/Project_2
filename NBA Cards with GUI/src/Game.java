@@ -175,7 +175,8 @@ public class Game
 	}
 	
 	//opens the pack
-	public void openPack() {
+	//changed from void to String for project 2
+	public String openPack() {
 		boolean hasCoach = checkCoach();
 		Card card;
 		boolean ifAdd = true;
@@ -195,7 +196,10 @@ public class Game
 				System.out.println("Rarity: " + obtainedCards[i].getRarity());
 				obtainedCards[i].toString();
 				ifAdd = false;
-				break;
+				
+				//for project 2
+				//a represents that user already has the card
+				return "a" + obtainedCards[i].getName();
 				}
 			}
 		} 
@@ -206,13 +210,21 @@ public class Game
 		System.out.println("You Have Received:");
 		System.out.println(obtainedCards[location].getName());
 		System.out.println(obtainedCards[location].getRarity());
-		}
-		else if(obtainedCards[9]!= null) {
-			System.out.println("You have max cards");
+		
+		//for project 2
+		//r represents that user will receive the card
+		return "r" + obtainedCards[location].getName();
 		}
 		else {
-			System.out.println("Go Back to Menu");
+			System.out.println("You have max cards");
+			
+			//for project 2
+			//m represents that user has max cards
+			return "m";
 		}
+		
+		
+		
 		
 	}
 	

@@ -22,8 +22,12 @@ public class GUI implements ActionListener
 	private JButton storageButton;
 	private JButton cardRarityButton;
 	private JButton menuButton;
+	private Game game;
 	
 	public GUI() {
+		game = new Game();
+		game.availableCards();
+		
 		menuFrame = new JFrame();
 		openPackFrame = new JFrame();
 		storageFrame = new JFrame();
@@ -65,14 +69,45 @@ public class GUI implements ActionListener
 		
 	}
 	
-	public void menu() {
-		
-		
-		
-		
-	}
+	
 	
 	public void openPack() {
+		String cardActionandName = game.openPack();
+		
+		if(cardActionandName.charAt(0)=='r') {
+			
+			String playerName = cardActionandName.substring(1);
+			
+			
+			ImageIcon playerIcon = new ImageIcon(playerName+".jpg");
+			Image player = playerIcon.getImage();
+			player = player.getScaledInstance(150, 250, java.awt.Image.SCALE_SMOOTH);
+			playerIcon = new ImageIcon(player);
+			JLabel lebronLabel = new JLabel(playerIcon);
+			lebronLabel.setBounds(130, 105, 150, 250);
+			openPackFrame.add(lebronLabel);
+		}
+		
+		else if(cardActionandName.charAt(0)=='a') {
+
+			String playerName = cardActionandName.substring(1);
+			
+			
+			ImageIcon playerIcon = new ImageIcon(playerName+".jpg");
+			Image player = playerIcon.getImage();
+			player = player.getScaledInstance(150, 250, java.awt.Image.SCALE_SMOOTH);
+			playerIcon = new ImageIcon(player);
+			JLabel lebronLabel = new JLabel(playerIcon);
+			lebronLabel.setBounds(130, 105, 150, 250);
+			openPackFrame.add(lebronLabel);
+			
+			//add image saying you already have this player
+		}
+		
+		else if(cardActionandName.charAt(0)=='m') {
+			//add image that you have max players
+		}
+		
 		//temporary code testing to see if code works
 		ImageIcon lebronIcon = new ImageIcon("lebron.jpg");
 		Image lebron = lebronIcon.getImage();
@@ -85,6 +120,8 @@ public class GUI implements ActionListener
 	}
 	
 	public void storage() {
+		game.storage();
+		
 		//temporary code testing to see if code works
 				ImageIcon lebronIcon = new ImageIcon("lebron.jpg");
 				Image lebron = lebronIcon.getImage();
@@ -93,7 +130,7 @@ public class GUI implements ActionListener
 				JLabel lebronLabel = new JLabel(lebronIcon);
 				lebronLabel.setBounds(130, 105, 150, 250);
 				
-				frame.add(lebronLabel);	
+				storageFrame.add(lebronLabel);	
 	}
 	
 	public void cardRarity() {
@@ -104,23 +141,17 @@ public class GUI implements ActionListener
 		kobeIcon = new ImageIcon(kobe);
 		JLabel kobeLabel = new JLabel(kobeIcon);
 		kobeLabel.setBounds(130, 105, 150, 250);
-		frame.add(kobeLabel);
+		cardRarityFrame.add(kobeLabel);
+		
+		//add stats image next to kobe card
 		
 		
-		frame.add(menuButton);
+		cardRarityFrame.add(menuButton);
 		
 		
 	}
 	
-	public void checkAction() {
-		
-		if(openPackButton.isEnabled()) {
-			openPack();
-		}
-		else if(cardRarityButton.isEnabled()) {
-			cardRarity();
-		}
-	}
+	
 	
 	@Override
 	public void actionPerformed(ActionEvent e)
@@ -133,13 +164,17 @@ public class GUI implements ActionListener
 		}
 		
 		else if(e.getSource()==storageButton) {
-			storage();
+			menuFrame.setVisible(false);
+			storageFrame.setVisible(true);
 		}
 		else if(e.getSource()==cardRarityButton) {
-			cardRarity();
+			menuFrame.setVisible(false);
+			cardRarityFrame.setVisible(true);
 		}
 		else if(e.getSource()==menuButton) {
 			openPackFrame.setVisible(false);
+			storageFrame.setVisible(false);
+			cardRarityFrame.setVisible(false);
 			menuFrame.setVisible(true);
 		}
 	}
