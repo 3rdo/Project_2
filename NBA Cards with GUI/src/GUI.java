@@ -27,7 +27,8 @@ public class GUI implements ActionListener
 	private Game game;
 	private String[] playerNames;
 	private int currentLocation;
-	
+	private JLabel cardLabel;
+	private JLabel alreadyLabel;
 	
 	public GUI() {		
 		game = new Game();
@@ -60,7 +61,11 @@ public class GUI implements ActionListener
 		leftButton.setBounds(50, 260, 50, 20);
 		rightButton.setBounds(100, 260, 50, 20);
 		
-		
+		openPackFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		openPackFrame.setTitle("Opening Pack");
+		openPackFrame.setSize(500, 500);
+		openPackFrame.setLayout(null);
+		openPackFrame.setVisible(true);
 		
 	
 		menuFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -72,99 +77,110 @@ public class GUI implements ActionListener
 		menuFrame.add(cardRarityButton);
 		menuFrame.setVisible(true);
 		
-		openPackFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		openPackFrame.setTitle("Opening Pack");
-		openPackFrame.setSize(500, 500);
-		openPackFrame.setLayout(null);
-		openPack();
-		openPackFrame.setVisible(false);
+		
 		
 		storageFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		storageFrame.setTitle("Storage");
 		storageFrame.setSize(500, 500);
 		storageFrame.setLayout(null);
-		storage();
+		
 		storageFrame.setVisible(false);
+		
+		cardRarityFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		cardRarityFrame.setTitle("Storage");
+		cardRarityFrame.setSize(500, 500);
+		cardRarityFrame.setLayout(null);
+		cardRarity();
+		cardRarityFrame.setVisible(false);
 
-		playerNames=game.getPlayerNames();
+		playerNames = new String[10];
+		for(int i = 0; i <playerNames.length;i++) {
+			playerNames[i] = "Empty";
+		}
+		
 		currentLocation = 0;
 	}
 	
 	
 	
 	public void openPack() {
+		
+		
 		String cardActionandName = game.openPack();
-		
-		if(cardActionandName.charAt(0)=='r') {
+		System.out.println(cardActionandName);
+		if(cardActionandName.charAt(0)=='r' || cardActionandName.charAt(0)=='a') {
 			
 			String playerName = cardActionandName.substring(1);
 			
 			
-			ImageIcon playerIcon = new ImageIcon(playerName+".jpg");
+			ImageIcon playerIcon = new ImageIcon(playerName+".png");
 			Image player = playerIcon.getImage();
-			player = player.getScaledInstance(150, 250, java.awt.Image.SCALE_SMOOTH);
+			player = player.getScaledInstance(183, 315, java.awt.Image.SCALE_SMOOTH);
 			playerIcon = new ImageIcon(player);
-			JLabel lebronLabel = new JLabel(playerIcon);
-			lebronLabel.setBounds(130, 105, 150, 250);
-			openPackFrame.add(lebronLabel);
+			cardLabel = new JLabel(playerIcon);
+			cardLabel.setBounds(100, 55, 183, 315);
+			openPackFrame.add(cardLabel);
+			
+			if(cardActionandName.charAt(0)=='a') {
+				//add image that says you already have this player
+				ImageIcon alreadyIcon = new ImageIcon("AlreadyHaveCard.png");
+				Image already = alreadyIcon.getImage();
+				already = already.getScaledInstance(183, 315, java.awt.Image.SCALE_SMOOTH);
+				alreadyIcon = new ImageIcon(already);
+				alreadyLabel = new JLabel(alreadyIcon);
+				alreadyLabel.setBounds(400, 230, 200, 20);
+				openPackFrame.add(cardLabel);
+			}
 		}
 		
-		else if(cardActionandName.charAt(0)=='a') {
-
-			String playerName = cardActionandName.substring(1);
-			
-			
-			ImageIcon playerIcon = new ImageIcon(playerName+".jpg");
-			Image player = playerIcon.getImage();
-			player = player.getScaledInstance(150, 250, java.awt.Image.SCALE_SMOOTH);
-			playerIcon = new ImageIcon(player);
-			JLabel lebronLabel = new JLabel(playerIcon);
-			lebronLabel.setBounds(130, 105, 150, 250);
-			openPackFrame.add(lebronLabel);
-			
-			//add image saying you already have this player
-		}
+		
 		
 		else if(cardActionandName.charAt(0)=='m') {
-			//add image that you have max players
+			//add image that says you have max players
 		}
 		
-		//temporary code testing to see if code works
-		ImageIcon lebronIcon = new ImageIcon("lebron.jpg");
-		Image lebron = lebronIcon.getImage();
-		lebron = lebron.getScaledInstance(150, 250, java.awt.Image.SCALE_SMOOTH);
-		lebronIcon = new ImageIcon(lebron);
-		JLabel lebronLabel = new JLabel(lebronIcon);
-		lebronLabel.setBounds(130, 105, 150, 250);
-		openPackFrame.add(lebronLabel);
+		
 		openPackFrame.add(menuButton);
+		
 	}
 	
 	public void storage() {
 		storageFrame.add(leftButton);
 		storageFrame.add(rightButton);
+		
 		String name = playerNames[currentLocation];
 		
 		
-		//temporary code testing to see if code works
-				ImageIcon playerIcon = new ImageIcon(name + ".jpg");
+			if(!name.equals("Empty")) {
+				ImageIcon playerIcon = new ImageIcon(name + ".png");
 				Image player = playerIcon.getImage();
-				player = player.getScaledInstance(150, 250, java.awt.Image.SCALE_SMOOTH);
+				player = player.getScaledInstance(183, 315, java.awt.Image.SCALE_SMOOTH);
 				playerIcon = new ImageIcon(player);
 				JLabel playerLabel = new JLabel(playerIcon);
-				playerLabel.setBounds(130, 105, 150, 250);
+				playerLabel.setBounds(130, 105, 183, 315);
 				
 				storageFrame.add(playerLabel);	
+			}
+			else {
+				ImageIcon playerIcon = new ImageIcon("Empty.png");
+				Image player = playerIcon.getImage();
+				player = player.getScaledInstance(183, 315, java.awt.Image.SCALE_SMOOTH);
+				playerIcon = new ImageIcon(player);
+				JLabel playerLabel = new JLabel(playerIcon);
+				playerLabel.setBounds(130, 105, 183, 315);
+				
+				storageFrame.add(playerLabel);
+			}
 	}
 	
 	public void cardRarity() {
 		//resizes and moves kobe image on the screen
-		ImageIcon kobeIcon = new ImageIcon("kobe.jpg");
+		ImageIcon kobeIcon = new ImageIcon("Kobe Bryant.png");
 		Image kobe = kobeIcon.getImage();
-		kobe = kobe.getScaledInstance(150, 250, java.awt.Image.SCALE_SMOOTH);
+		kobe = kobe.getScaledInstance(183, 315, java.awt.Image.SCALE_SMOOTH);
 		kobeIcon = new ImageIcon(kobe);
 		JLabel kobeLabel = new JLabel(kobeIcon);
-		kobeLabel.setBounds(130, 105, 150, 250);
+		kobeLabel.setBounds(130, 105, 183, 315);
 		cardRarityFrame.add(kobeLabel);
 		
 		//add stats image next to kobe card
@@ -184,6 +200,7 @@ public class GUI implements ActionListener
 		
 		if(e.getSource()==openPackButton) {
 			menuFrame.setVisible(false);
+			openPack();
 			openPackFrame.setVisible(true);
 		}
 		
@@ -200,6 +217,8 @@ public class GUI implements ActionListener
 			storageFrame.setVisible(false);
 			cardRarityFrame.setVisible(false);
 			menuFrame.setVisible(true);
+			openPackFrame.remove(cardLabel);
+			
 		}
 		else if(e.getSource()==leftButton) {
 			if(currentLocation == 0) {

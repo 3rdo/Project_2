@@ -235,6 +235,7 @@ public class Game
 			System.out.println(obtainedCards[i].getName());
 			System.out.println("Rarity: " + obtainedCards[i].getRarity());
 			System.out.println(obtainedCards[i].toString());
+			
 			}
 		}
 	}
@@ -249,10 +250,23 @@ public class Game
 	
 	//get player names to GUI
 	public String[] getPlayerNames() {
-		String [] playerNames = new String [obtainedCards.length];
+		String [] playerNames = new String [10];
+		String[] emptyStorage = new String[10];
+		
 		for(int i =0; i< obtainedCards.length; i++) {
+			
 			playerNames [i] = obtainedCards[i].getName(); 
 		}
-	return playerNames;
+		
+		for(int i =0; i< obtainedCards.length; i++) {
+			emptyStorage [i] = "Empty"; 
+		}
+	
+		if(obtainedCards[0] != null) {
+			return playerNames;
+		}
+		else {
+			return emptyStorage;
+		}
 	}
 }
