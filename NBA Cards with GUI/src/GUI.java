@@ -22,9 +22,14 @@ public class GUI implements ActionListener
 	private JButton storageButton;
 	private JButton cardRarityButton;
 	private JButton menuButton;
+	private JButton leftButton;
+	private JButton rightButton;
 	private Game game;
+	private String[] playerNames;
+	private int currentLocation;
 	
-	public GUI() {
+	
+	public GUI() {		
 		game = new Game();
 		game.availableCards();
 		
@@ -37,16 +42,23 @@ public class GUI implements ActionListener
 		storageButton = new JButton("Storage");
 		cardRarityButton = new JButton("Card Rarity");
 		menuButton = new JButton("Menu");
+		leftButton= new JButton("Left");
+		rightButton = new JButton("Right");
+
 		
 		openPackButton.addActionListener(this);
 		storageButton.addActionListener(this);
 		cardRarityButton.addActionListener(this);
 		menuButton.addActionListener(this);
+		leftButton.addActionListener(this);
+		rightButton.addActionListener(this);
 		
 		openPackButton.setBounds(200, 175, 100, 50);
 		storageButton.setBounds(200, 235, 100, 50);
 		cardRarityButton.setBounds(200, 295, 100, 50);
 		menuButton.setBounds(400, 250, 50, 20);
+		leftButton.setBounds(50, 260, 50, 20);
+		rightButton.setBounds(100, 260, 50, 20);
 		
 		
 		
@@ -67,6 +79,15 @@ public class GUI implements ActionListener
 		openPack();
 		openPackFrame.setVisible(false);
 		
+		storageFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		storageFrame.setTitle("Storage");
+		storageFrame.setSize(500, 500);
+		storageFrame.setLayout(null);
+		storage();
+		storageFrame.setVisible(false);
+
+		playerNames=game.getPlayerNames();
+		currentLocation = 0;
 	}
 	
 	
@@ -120,17 +141,20 @@ public class GUI implements ActionListener
 	}
 	
 	public void storage() {
-		game.storage();
+		storageFrame.add(leftButton);
+		storageFrame.add(rightButton);
+		String name = playerNames[currentLocation];
+		
 		
 		//temporary code testing to see if code works
-				ImageIcon lebronIcon = new ImageIcon("lebron.jpg");
-				Image lebron = lebronIcon.getImage();
-				lebron = lebron.getScaledInstance(150, 250, java.awt.Image.SCALE_SMOOTH);
-				lebronIcon = new ImageIcon(lebron);
-				JLabel lebronLabel = new JLabel(lebronIcon);
-				lebronLabel.setBounds(130, 105, 150, 250);
+				ImageIcon playerIcon = new ImageIcon(name + ".jpg");
+				Image player = playerIcon.getImage();
+				player = player.getScaledInstance(150, 250, java.awt.Image.SCALE_SMOOTH);
+				playerIcon = new ImageIcon(player);
+				JLabel playerLabel = new JLabel(playerIcon);
+				playerLabel.setBounds(130, 105, 150, 250);
 				
-				storageFrame.add(lebronLabel);	
+				storageFrame.add(playerLabel);	
 	}
 	
 	public void cardRarity() {
@@ -176,6 +200,22 @@ public class GUI implements ActionListener
 			storageFrame.setVisible(false);
 			cardRarityFrame.setVisible(false);
 			menuFrame.setVisible(true);
+		}
+		else if(e.getSource()==leftButton) {
+			if(currentLocation == 0) {
+				currentLocation = 9;
+			}
+			else {
+				currentLocation--;
+			}
+		}
+		else if (e.getSource()==rightButton) {
+			if(currentLocation == 9) {
+				currentLocation = 0;
+			}
+			else {
+				currentLocation++;
+			}
 		}
 	}
 	

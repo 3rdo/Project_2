@@ -246,4 +246,13 @@ public class Game
 		}
 		System.out.println("Some of the top players include: Kobe Bryant, Michael Jordan, and LeBron James!");
 	}
+	
+	//get player names to GUI
+	public String[] getPlayerNames() {
+		String [] playerNames = new String [obtainedCards.length];
+		for(int i =0; i< obtainedCards.length; i++) {
+			playerNames [i] = obtainedCards[i].getName(); 
+		}
+	return playerNames;
+	}
 }
