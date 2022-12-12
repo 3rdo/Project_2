@@ -191,9 +191,7 @@ public class Game
 		for(int i = 0; i<obtainedCards.length; i++) {
 			if(obtainedCards[i] != null) {
 				if(obtainedCards[i].getName().equals(card.getName())) {
-				System.out.println("You Already Have This Card");
-				System.out.println(obtainedCards[i].getName());
-				System.out.println("Rarity: " + obtainedCards[i].getRarity());
+				
 				obtainedCards[i].toString();
 				ifAdd = false;
 				
@@ -204,26 +202,19 @@ public class Game
 			}
 		} 
 		
-		if(ifAdd) {
 		int location = checkCardLocation();
+		if(ifAdd) {
+		
 		obtainedCards[location]=card;
-		System.out.println("You Have Received:");
-		System.out.println(obtainedCards[location].getName());
-		System.out.println(obtainedCards[location].getRarity());
+		
 		
 		//for project 2
 		//r represents that user will receive the card
 		return "r" + obtainedCards[location].getName();
 		}
 		else {
-			System.out.println("You have max cards");
-			
-			//for project 2
-			//m represents that user has max cards
-			return "m";
+			return "a" + obtainedCards[location].getName();
 		}
-		
-		
 		
 		
 	}
@@ -244,13 +235,7 @@ public class Game
 		return players;
 	}
 	
-	//shows the rarities of the cards and the rarest cards to get
-	public void viewCardRarity() {
-		for(int i = 0; i < rarityNames.length; i++){
-			System.out.println(rarityNames[i]);
-		}
-		System.out.println("Some of the top players include: Kobe Bryant, Michael Jordan, and LeBron James!");
-	}
+	
 	
 	//get player names to GUI
 	public String[] getPlayerNames() {
