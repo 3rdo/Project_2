@@ -229,15 +229,19 @@ public class Game
 	}
 	
 	//opens storage
-	public void storage() {
+	public String[] storage() {
+		String[] players = new String[]{"Empty", "Empty", "Empty", "Empty", "Empty",
+										"Empty", "Empty", "Empty", "Empty", "Empty"};
+		
+		System.out.println(players[9]);
 		for(int i = 0; i < obtainedCards.length; i++){
 			if(obtainedCards[i]!=null) {
-			System.out.println(obtainedCards[i].getName());
-			System.out.println("Rarity: " + obtainedCards[i].getRarity());
-			System.out.println(obtainedCards[i].toString());
+			players[i] = obtainedCards[i].getName();
 			
 			}
 		}
+		
+		return players;
 	}
 	
 	//shows the rarities of the cards and the rarest cards to get
