@@ -1,19 +1,14 @@
-import java.awt.BorderLayout;
-import java.awt.GridLayout;
 import java.awt.Image;
-import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Scanner;
-
-import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 public class GUI implements ActionListener
 {
+	//INSTANCE VARIABLES
+	
 	private JFrame menuFrame;
 	private JFrame openPackFrame;
 	private JFrame storageFrame;
@@ -36,15 +31,20 @@ public class GUI implements ActionListener
 	private boolean check;
 	
 	
-	public GUI() {		
+	public GUI() {	
+		//creates an object of our original game class
 		game = new Game();
+		//sets the players to the array in game
 		game.availableCards();
 		
+		//Frames used to show gui
+		//Frames are different for each as they show different things
 		menuFrame = new JFrame();
 		openPackFrame = new JFrame();
 		storageFrame = new JFrame();
 		cardRarityFrame = new JFrame();
 		
+		//buttons that can cause the frame to change
 		openPackButton = new JButton("Open Pack");
 		storageButton = new JButton("Storage");
 		cardRarityButton = new JButton("Rarest Card");
@@ -52,7 +52,7 @@ public class GUI implements ActionListener
 		leftButton= new JButton("<");
 		rightButton = new JButton(">");
 
-		
+		//allows buttons to know when its clicked
 		openPackButton.addActionListener(this);
 		storageButton.addActionListener(this);
 		cardRarityButton.addActionListener(this);
@@ -60,6 +60,7 @@ public class GUI implements ActionListener
 		leftButton.addActionListener(this);
 		rightButton.addActionListener(this);
 		
+		//sets button size and location
 		openPackButton.setBounds(190, 175, 110, 50);
 		storageButton.setBounds(190, 235, 110, 50);
 		cardRarityButton.setBounds(190, 295, 110, 50);
@@ -67,13 +68,14 @@ public class GUI implements ActionListener
 		leftButton.setBounds(10, 260, 50, 20);
 		rightButton.setBounds(430, 260, 50, 20);
 		
+		//sets up when you open a pack
 		openPackFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		openPackFrame.setTitle("Opening Pack");
 		openPackFrame.setSize(500, 500);
 		openPackFrame.setLayout(null);
 		openPackFrame.setVisible(true);
 		
-	
+		//sets up when you are on the menu
 		menuFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		menuFrame.setTitle("NBA Cards");
 		menuFrame.setSize(500, 500);
@@ -84,7 +86,7 @@ public class GUI implements ActionListener
 		menuFrame.setVisible(true);
 		
 		
-		
+		//sets up when you are in storage
 		storageFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		storageFrame.setTitle("Storage");
 		storageFrame.setSize(500, 500);
@@ -94,6 +96,7 @@ public class GUI implements ActionListener
 		storageFrame.add(playerStatsLabel);
 		storageFrame.setVisible(false);
 		
+		//sets up when you are in cardrarity
 		cardRarityFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		cardRarityFrame.setTitle("Storage");
 		cardRarityFrame.setSize(500, 500);
@@ -101,8 +104,10 @@ public class GUI implements ActionListener
 		cardRarity();
 		cardRarityFrame.setVisible(false);
 		
+		//used so that labels won't cause a nullpointer exception
 		check = false;
 
+		//creates an array of all the player's names
 		playerNames = new String[10];
 		for(int i = 0; i <playerNames.length;i++) {
 			playerNames[i] = "Empty";
@@ -117,13 +122,14 @@ public class GUI implements ActionListener
 		
 		
 		String cardActionandName = game.openPack();
-		System.out.println(cardActionandName);
+		
 		String playerName = cardActionandName.substring(1);
 		if(cardActionandName.charAt(0)=='r') {
 			
 			
 			check = false;
 			
+			//resizes and positions the image of player
 			ImageIcon playerIcon = new ImageIcon(playerName+".png");
 			Image player = playerIcon.getImage();
 			player = player.getScaledInstance(183, 315, java.awt.Image.SCALE_SMOOTH);
@@ -135,6 +141,7 @@ public class GUI implements ActionListener
 			
 			else if(cardActionandName.charAt(0)=='a') {
 				
+				
 				check = true;
 				//add image that says you already have this player
 				ImageIcon alreadyIcon = new ImageIcon("AlreadyHaveCard.png");
@@ -145,6 +152,7 @@ public class GUI implements ActionListener
 				alreadyLabel.setBounds(80, 230, 236, 34);
 				openPackFrame.add(alreadyLabel);
 				
+				//resizes and positions the image of player
 				ImageIcon playerIcon = new ImageIcon(playerName+".png");
 				Image player = playerIcon.getImage();
 				player = player.getScaledInstance(183, 315, java.awt.Image.SCALE_SMOOTH);
@@ -156,24 +164,26 @@ public class GUI implements ActionListener
 			
 		
 		
-		
+		//adds button to frame
 		openPackFrame.add(menuButton);
 		
 	}
 	
 	public void storage() {
-		
+		//calls the storage from the game class to know what players are obtained
 		String[] temp = game.storage();
 		
 		for(int i = 0; i<temp.length; i++) {
 			playerNames[i]=temp[i];
-			System.out.println(playerNames[i]);
+			
 		}
-		System.out.println(currentLocation);
+		
 		String name = playerNames[currentLocation];
-		System.out.println(name);
+		
 		
 			if(!name.equals("Empty")) {
+				
+				//shows the player image
 				ImageIcon playerIcon = new ImageIcon(name + ".png");
 				Image player = playerIcon.getImage();
 				player = player.getScaledInstance(183, 315, java.awt.Image.SCALE_SMOOTH);
@@ -188,6 +198,8 @@ public class GUI implements ActionListener
 				 * 
 				 * 
 				 */
+				
+				//shows player stats image
 				playerIcon = new ImageIcon(name + " Stats.png");
 				player = playerIcon.getImage();
 				player = player.getScaledInstance(148, 166, java.awt.Image.SCALE_SMOOTH);
@@ -198,6 +210,7 @@ public class GUI implements ActionListener
 				storageFrame.add(playerStatsLabel);
 			}
 			else {
+				//shows empty picture when array contains "Empty"
 				ImageIcon playerIcon = new ImageIcon("Empty.png");
 				Image player = playerIcon.getImage();
 				player = player.getScaledInstance(183, 315, java.awt.Image.SCALE_SMOOTH);
@@ -212,6 +225,8 @@ public class GUI implements ActionListener
 				 * 
 				 * 
 				 */
+				//shows empty stats picture when array contains "Empty"
+				
 				playerIcon = new ImageIcon("Empty Stats.png");
 				player = playerIcon.getImage();
 				player = player.getScaledInstance(148, 166, java.awt.Image.SCALE_SMOOTH);
@@ -221,6 +236,8 @@ public class GUI implements ActionListener
 				
 				storageFrame.add(playerStatsLabel);
 			}
+			
+			//adds all the buttons to navigate the frame
 			storageFrame.add(leftButton);
 			storageFrame.add(rightButton);
 			storageFrame.add(menuButton);
@@ -252,7 +269,7 @@ public class GUI implements ActionListener
 	public void actionPerformed(ActionEvent e)
 	{
 		// TODO Auto-generated method stub
-		
+		//controls what frames are showing
 		
 		if(e.getSource()==openPackButton) {
 			menuFrame.setVisible(false);

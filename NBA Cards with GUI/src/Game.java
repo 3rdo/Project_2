@@ -176,6 +176,7 @@ public class Game
 	
 	//opens the pack
 	//changed from void to String for project 2
+	
 	public String openPack() {
 		boolean hasCoach = checkCoach();
 		Card card;
@@ -220,11 +221,12 @@ public class Game
 	}
 	
 	//opens storage
+	//creates an array of the storage with "Empty" strings and it gets returned to the GUI
 	public String[] storage() {
 		String[] players = new String[]{"Empty", "Empty", "Empty", "Empty", "Empty",
 										"Empty", "Empty", "Empty", "Empty", "Empty"};
 		
-		System.out.println(players[9]);
+	
 		for(int i = 0; i < obtainedCards.length; i++){
 			if(obtainedCards[i]!=null) {
 			players[i] = obtainedCards[i].getName();
@@ -237,25 +239,5 @@ public class Game
 	
 	
 	
-	//get player names to GUI
-	public String[] getPlayerNames() {
-		String [] playerNames = new String [10];
-		String[] emptyStorage = new String[10];
-		
-		for(int i =0; i< obtainedCards.length; i++) {
-			
-			playerNames [i] = obtainedCards[i].getName(); 
-		}
-		
-		for(int i =0; i< obtainedCards.length; i++) {
-			emptyStorage [i] = "Empty"; 
-		}
 	
-		if(obtainedCards[0] != null) {
-			return playerNames;
-		}
-		else {
-			return emptyStorage;
-		}
-	}
 }
